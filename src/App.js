@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
+import Character from "./components/Character";
+
 import "./App.css";
 
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
 
-  const [character, setCharacter] = useState();
+  const [characters, setCharacters] = useState([]);
   const [error, setError] = useState();
 
   // Fetch characters from the API in an effect hook. Remember, anytime you have a
@@ -16,18 +17,21 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get()
-      .then()
+      .get("https://swapi.py4e.com/api/people")
+      .then((response) => setCharacters(response.data.results))
       .catch((err) => setError(err.response.message));
   }, []);
 
   useEffect(() => {
-    console.log("my character data", character);
-  }, [character]);
+    console.log("my characters data", characters);
+  }, [characters]);
 
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
+      {characters.map((character) => (
+        <Character character={character} />
+      ))}
     </div>
   );
 };
