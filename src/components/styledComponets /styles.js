@@ -5,4 +5,5 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border: 2px soild green;
 `;
